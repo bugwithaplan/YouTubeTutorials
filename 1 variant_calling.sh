@@ -1,4 +1,11 @@
 #!/bin/bash
+ref="data/hg38.fa"
+known_sites="data/Homo_sapiens_assembly38.dbsnp138.vcf"
+aligned_reads="aligned_reads"
+reads="reads"
+results="results"
+data="data"
+
 
 # Script to call germline variants in a human WGS paired end reads 2 X 100bp
 # Following GATK4 best practices workflow - https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-
@@ -6,8 +13,8 @@
 
 
 # download data
-wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_1.filt.fastq.gz
-wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_2.filt.fastq.gz
+wget -P ${reads}/ ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_1.filt.fastq.gz
+wget -P ${reads}/ ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_2.filt.fastq.gz
 
 
 echo "Run Prep files..."
@@ -17,20 +24,20 @@ echo "Run Prep files..."
 
 
 # download reference files
-wget -P ~/Desktop/demo/supporting_files/hg38/ https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
-gunzip ~/Desktop/demo/supporting_files/hg38/hg38.fa.gz
+wget -P ${data}/ https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+gunzip ${data}/hg38/hg38.fa.gz
 
 # index ref - .fai file before running haplotype caller
-samtools faidx ~/Desktop/demo/supporting_files/hg38/hg38.fa
+samtools faidx  -P ${data}/hg38.fa
 
 
 # ref dict - .dict file before running haplotype caller
-gatk CreateSequenceDictionary R=~/Desktop/demo/supporting_files/hg38/hg38.fa O=~/Desktop/demo/supporting_files/hg38/hg38.dict
+gatk CreateSequenceDictionary R= -P ${data}/hg38.fa O=~ -P ${data}/hg38.dict
 
 
 # download known sites files for BQSR from GATK resource bundle
-wget -P ~/Desktop/demo/supporting_files/hg38/ https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf
-wget -P ~/Desktop/demo/supporting_files/hg38/ https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf.idx
+wget -P ${data}/ https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf
+wget -P ${data}/ https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf.idx
 
 
 
@@ -38,12 +45,13 @@ wget -P ~/Desktop/demo/supporting_files/hg38/ https://storage.googleapis.com/gen
 
 
 # directories
-ref="/Users/kr/Desktop/demo/supporting_files/hg38/hg38.fa"
-known_sites="/Users/kr/Desktop/demo/supporting_files/hg38/Homo_sapiens_assembly38.dbsnp138.vcf"
-aligned_reads="/Users/kr/Desktop/demo/VC/aligned_reads"
-reads="/Users/kr/Desktop/demo/VC/reads"
-results="/Users/kr/Desktop/demo/VC/results"
-data="/Users/kr/Desktop/demo/VC/data"
+project="/mnt/c/Users/manju/Desktop/U251_project"
+ref="${project}/data/hg38.fa"
+known_sites="${project}/data/Homo_sapiens_assembly38.dbsnp138.vcf"
+aligned_reads="${project}/aligned_reads"
+reads="${project}/reads"
+results="${project}/results"
+data="${project}/data"
 
 
 
