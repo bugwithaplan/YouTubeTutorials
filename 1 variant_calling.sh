@@ -4,10 +4,11 @@
 # Following GATK4 best practices workflow - https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-
 # This script is for demonstration purposes only
 
-
+if false
+then
 # download data
-wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_1.filt.fastq.gz
-wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_2.filt.fastq.gz
+-p /mnt/c/Users/manju/Desktop/U251_project/reads wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_1.filt.fastq.gz
+-p /mnt/c/Users/manju/Desktop/U251_project/reads wget ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/phase3/data/HG00096/sequence_read/SRR062634_2.filt.fastq.gz
 
 
 echo "Run Prep files..."
@@ -35,7 +36,7 @@ wget -P ~/Desktop/demo/supporting_files/hg38/ https://storage.googleapis.com/gen
 
 
 ###################################################### VARIANT CALLING STEPS ####################################################################
-
+fi
 
 # directories
 ref="/Users/kr/Desktop/demo/supporting_files/hg38/hg38.fa"
